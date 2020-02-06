@@ -1,4 +1,7 @@
+import {Container} from './container';
+
 export class Board {
-    id: string;
+    id: number;
     displayName: string;
+    containers: Array<Container> = [];
 }
