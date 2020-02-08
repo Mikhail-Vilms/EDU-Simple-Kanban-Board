@@ -1,12 +1,13 @@
-<div cdkDropListGroup>
+<div cdkDropList [cdkDropListData]=board.containers cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropContainer($event)" >
   
-  <div class="example-container" *ngFor="let container of board.containers">
-    <h2>{{container.displayName}}</h2>
+  <div cdkDropListGroup class="canban-container" *ngFor="let container of board.containers" cdkDrag [cdkDragData]="container">
     
-    <div cdkDropList [cdkDropListData]=container.tickets class="example-list"  (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let ticket of container.tickets" cdkDrag>{{ticket.displayName}}</div>
+    <h5>{{container.displayName}}</h5>
+    
+    <div cdkDropList class="tickets-list" id={{container.id}} [cdkDropListData]=container.tickets (cdkDropListDropped)="dropTicket($event)" [cdkDropListConnectedTo]="getConnectedList()">
+      <div class="ticket-box" *ngFor="let ticket of container.tickets" cdkDrag [cdkDragData]="ticket">{{ticket.displayName}}</div>
     </div>
 
   </div>
-  
+
 </div>

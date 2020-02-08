@@ -47,7 +47,15 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  drop(event: CdkDragDrop<Ticket[]>) {
+  dropContainer(event: CdkDragDrop<Container[]>) {
+    console.log("Container id: " + this.board.containers[event.previousIndex]["id"]);
+    console.log("Previous position: " + (event.previousIndex + 1));
+    console.log("New position: " + (event.currentIndex + 1));
+
+    moveItemInArray(this.board.containers, event.previousIndex, event.currentIndex);
+  }
+
+  dropTicket(event: CdkDragDrop<Ticket[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -57,8 +65,7 @@ export class BoardComponent implements OnInit {
         event.currentIndex);
     }
   }
-
-  logEveryTicketPositions() {
-    console.log();
+  getConnectedList(): any[] {
+    return this.board.containers.map(x => `${x.id}`);
   }
 }
